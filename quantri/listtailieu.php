@@ -8,7 +8,7 @@ function anhdaidien($arrstring,$height){
 <div>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Danh sách phân loại sản phẩm</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách tài liệu</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -16,14 +16,16 @@ function anhdaidien($arrstring,$height){
                                     <thead>
                                         <tr>
                                             <th>Tên tài liệu</th>
-                                            <th>Môn</th>
+                                            <th>Update Day</th>
+                                            <th>Image=</th>
                                             <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         <th>Tên tài liệu</th>
-                                            <th>Môn</th>
+                                        <th>Update Day</th>
+                                            <th>Images</th>
                                             <th>Option</th>
                                         </tr>
                                     </tfoot>

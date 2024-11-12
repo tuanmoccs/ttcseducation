@@ -86,19 +86,19 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
               <use href="#tick-circle" class="text-secondary" />
             </svg>
-            <p class="ps-4">Engage with a worldwide community of inquisitive and imaginative individuals.</p>
+            <!-- <p class="ps-4">Engage with a worldwide community of inquisitive and imaginative individuals.</p> -->
           </div>
           <div class="d-flex">
             <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
               <use href="#tick-circle" class="text-secondary" />
             </svg>
-            <p class="ps-4">Learn a skill of your choice from the experts around the world from various industries</p>
+            <!-- <p class="ps-4">Learn a skill of your choice from the experts around the world from various industries</p> -->
           </div>
           <div class="d-flex">
             <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
               <use href="#tick-circle" class="text-secondary" />
             </svg>
-            <p class="ps-4">Learn a skill of your choice from the experts around the world from various industries</p>
+            <!-- <p class="ps-4">Learn a skill of your choice from the experts around the world from various industries</p> -->
           </div>
           <a href="about.html" class="btn btn-primary px-5 py-3 mt-4">Learn more</a>
 

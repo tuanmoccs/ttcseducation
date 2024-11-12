@@ -1,4 +1,7 @@
 <?php require("thanhphan/header.php") ?>
+    <div class= "bgtext" style = " margin-top:10px; ">
+      <img src="images/bgtext.jpg" alt="" style = "height : 150px; width : 100vw" >
+    </div>
     <div class="containertext" style = "display: flex; margin-top:20px; width:100%" >
         
         <div class="document-content" style = "margin-left :15px; width: 55% ;height: 600px">

@@ -128,7 +128,7 @@
             </li> -->
 
             <li class="nav-item">
-              <a href="contact.html" class="nav-link mx-2">contact</a>
+              <a href="contact.php" class="nav-link mx-2">contact</a>
             </li>
             <!-- <li class="nav-item">
               <a href="https://templatesjungle.gumroad.com/l/jubilee-free-bootstrap-5-html-website-template-for-online-course"
@@ -139,11 +139,11 @@
           <div class="d-none d-lg-flex align-items-center">
             <ul class="d-flex  align-items-center list-unstyled m-0">
               <li>
-                <a href="account.html" class="ms-3">
+                <a href="account.php" class="ms-3">
                   <i class="fa-sharp-duotone fa-solid fa-user"></i> </a>
               </li>
               <li>
-                <a href="wishlist.html" class="ms-3">
+                <a href="wishlist.php" class="ms-3">
                   <i class="fa-regular fa-heart" ></i>  </a>
                 </a>
               </li>
@@ -167,11 +167,11 @@
       <div class="d-flex  align-items-end mt-3">
         <ul class="d-flex  align-items-center list-unstyled m-0">
           <li>
-            <a href="account.html" class="me-3">
+            <a href="account.php" class="me-3">
               <i class="fa-sharp-duotone fa-solid fa-user"></i></a>
           </li>
           <li>
-            <a href="wishlist.html" class="me-3">
+            <a href="wishlist.php" class="me-3">
               <i class="fa-regular fa-heart" ></i> </a>
             </a>
           </li>
