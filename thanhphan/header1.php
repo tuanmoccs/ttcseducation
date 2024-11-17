@@ -111,10 +111,7 @@
                             <a href="contact.php" class="nav-link mx-2">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a href="register.php" class="nav-link mx-2">Đăng ký</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="loginform.php" class="nav-link mx-2">Đăng nhập</a>
+                            <a href="index.php?page=logout" class="nav-link mx-2">Thoát</a>
                         </li>
                         <div class="d-none d-lg-flex align-items-center">
                             <ul class="d-flex align-items-center list-unstyled m-0">
@@ -139,6 +136,7 @@
                                 </li>
                             </ul>
                         </div>
+
                 </div>
             </div>
 

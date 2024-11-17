@@ -6,7 +6,7 @@
 //   } 
 ?>
 
-<?php require("thanhphan/header.php") ?>
+<?php require("thanhphan/header1.php") ?>
   <section id="hero" style="background-image:url(images/red-and-black-abstract-design-on-white-geometric-background-free-vector.jpg); background-repeat: no-repeat; ">
     <div class="container">
       <div class="row align-items-center">

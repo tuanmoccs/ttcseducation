@@ -1,208 +1,269 @@
+<?php
+ob_start();
+session_start();
+include __DIR__ . "/ketnoi/connect.php";
+//     if(isset($_SESSION["Login"])){
+//     header("location:index.php");
+//   }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Login'])) {
+    $user_name = trim($_POST['user_name']);
+    $password = trim($_POST['password']);
+    if (!empty($user_name) && !empty($password)) {
+        
+        $stmt = $conn->prepare("SELECT * FROM tbl_user WHERE user_name = ? AND password = ?");
+        $stmt->bind_param("ss", $user_name, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $rowlogin = $result->fetch_assoc();
+            $_SESSION["Login"] = $rowlogin;
+            header("location: index1.php");
+        } else {
+            $txt_erro = "Tên đăng nhập hoặc mật khẩu không đúng!";
+        }
+        $stmt->close();
+    } else {
+        $txt_erro = "Vui lòng nhập đầy đủ thông tin!";
+    }
+}
+
+$conn->close();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-	<link href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
-        <form action="">
-            <h1>Login</h1>
-            <div class="formcontrol" >
-                <input id="username" type="text" placeholder="Username">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <h1>Đăng nhập</h1>
+            <div class="formcontrol">
+                <input id="user_name" name="user_name" type="text" placeholder="Tên đăng nhập" required>
                 <small></small>
                 <span></span>
             </div>
-            <div class="formcontrol ">
-                <input id="Password" type="text" placeholder="Password">
+            <div class="formcontrol">
+                <input id="password" name="password" type="password" placeholder="Mật khẩu" required>
                 <small></small>
                 <span></span>
             </div>
-            <button type="submit" class="btnLogin" name = "login">Login</button>
+            <button type="submit" class="btnLogin" name="Login">Đăng nhập</button>
             <div class="signuplink">
-                Not a member?  <a href="register.php">Sign Up</a>
+                Bạn chưa có tài khoản? <a href="register.php">Đăng ký</a>
             </div>
+            <?php
+            if (isset($txt_erro) && ($txt_erro != "")) {
+                echo "<font color='red'>" . htmlspecialchars($txt_erro) . "</font>";
+            }
+            ?>
         </form>
     </div>
 </body>
-<style>
 
-:root{
-    --success-color- : #2691d9;
-    --error-color- : #e74c3c;
+</html>
+
+<style>
+:root {
+    --success-color: #2691d9;
+    --error-color: #e74c3c;
+    --font-main: 'Poppins', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background: linear-gradient(120deg,#3ca7ee,#9b488f);
+
+body {
+    background: linear-gradient(120deg, #3ca7ee, #9b488f);
     height: 100vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Poppins';
+    font-family: var(--font-main);
 }
-.container{
-    width: 400px;
+
+h1 {
+    font-family: var(--font-secondary);
+    font-weight: 300;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
     background: white;
-    border: none;
-    outline: none;
     border-radius: 10px;
     padding: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.container h1{
+
+.container h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
-.formcontrol input{
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #adadad;
-    padding: 10px;
-    
-}
-.formcontrol{
+
+.formcontrol {
     width: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-top: 40px;
+    margin-top: 30px;
 }
-.formcontrol small{
+
+.formcontrol input {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #adadad;
+    padding: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.formcontrol input:focus {
+    border-color: var(--success-color);
+}
+
+.formcontrol small {
     margin-left: 10px;
     margin-top: 5px;
+    color: var(--error-color);
+    font-size: 12px;
 }
-.formcontrol span{
+
+.formcontrol span {
     position: absolute;
-    border-bottom:  3px solid var(--success-color-);
+    border-bottom: 3px solid var(--success-color);
     left: 0;
     top: 35px;
     width: 0%;
-    transition: 0.3s;
+    transition: width 0.3s ease;
 }
-.formcontrol input:focus ~ span{
+
+.formcontrol input:focus ~ span {
     width: 100%;
 }
-.formcontrol.error small{
-    color: var(--error-color-);
+
+.formcontrol.error input {
+    border-color: var(--error-color);
 }
-.formcontrol.error input{
-    border-bottom: 1px solid var(--error-color-);
-}
-.btnLogin{
+
+.btnLogin {
     width: 100%;
     height: 50px;
     border-radius: 25px;
     border: none;
-    outline: none;
-    background: var(--success-color-);
+    background: var(--success-color);
     color: white;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 18px;
+    margin-top: 20px;
     font-weight: bold;
     cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.btnLogin:hover{
-    scale: 0.9;
+
+.btnLogin:hover {
+    transform: scale(0.95);
     opacity: 0.9;
-    transition: 0.3s;
 }
-.signuplink{
+
+.signuplink {
     text-align: center;
+    margin-top: 20px;
+    font-family: var(--font-secondary);
+    font-weight: 300;
+    font-size: 14px;
 }
-.signuplink a{
-    color: var(--success-color-);
+
+.signuplink a {
+    color: var(--success-color);
     text-decoration: none;
-    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
+.signuplink a:hover {
+    color: #1b7db5;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .btnLogin {
+        font-size: 16px;
+    }
+}
 </style>
-<script >
-	var username = document.querySelector('#username')//id thi dung # nhe em
-var Email = document.querySelector('#Email')
-var Password = document.querySelector('#Password')
-var Comfirm = document.querySelector('#Confirm')
-var form = document.querySelector('form')
 
-function showError(input,massage){
-    let parent = input.parentElement
-    let small = parent.querySelector('small')
-    parent.classList.add('error')
-    small.innerText = massage
+
+<script>
+var user_name = document.querySelector('#user_name');
+var password = document.querySelector('#password');
+var form = document.querySelector('form');
+
+function showError(input, message) {
+    if (!input) return; // Đảm bảo input tồn tại
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.add('error');
+    small.innerText = message;
 }
 
-function showSuccess(input,massage){
-    let parent = input.parentElement
-    let small = parent.querySelector('small')
-    parent.classList.remove('error')
-    small.innerText = ''
+function showSuccess(input) {
+    if (!input) return; // Đảm bảo input tồn tại
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.remove('error');
+    small.innerText = '';
 }
 
-function checkEmptyError(listInput){
-    let isEmptyError = false
+function checkEmptyError(listInput) {
+    let isEmptyError = false;
     listInput.forEach(input => {
-    input.value = input.value.trim()
-
-    if(input.value ==''){
-        isEmptyError = true
-            showError(input,'Khong duoc de trong')
-        }else{
-            showSuccess(input)
+        if (!input || !input.value.trim()) {
+            isEmptyError = true;
+            showError(input, 'Không được để trống');
+        } else {
+            showSuccess(input);
         }
     });
-    return isEmptyError
+    return isEmptyError;
 }
 
-function checkEmail(input){
-    const regexEmail =
-  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  input.value = input.value.trim()
-  let isEmailError = !regexEmail.test(input.value)
-  if(regexEmail.test(input.value)){
-    showSuccess(input,'')
-  }else{
-    showError(input,'Email không hợp lệ')
-  }
-  return isEmailError
- }
- function checkLenght(input,min,max){
-    input.value = input.value.trim()
-    if(input.value.lenght < min){
-        showError(input,'Không đảm bảo độ dài')
-        return true
-    }else if(input.value > max){
-        showError(input,'Vuot qua ki tu cho phep')
-        return true
+function checkLength(input, min, max) {
+    if (!input) return true; // Tránh lỗi nếu input không tồn tại
+    input.value = input.value.trim();
+    if (input.value.length < min) {
+        showError(input, `Phải từ ${min} ký tự trở lên`);
+        return true;
+    } else if (input.value.length > max) {
+        showError(input, `Không được vượt quá ${max} ký tự`);
+        return true;
     }
-
-    return false
- }
- function checkMatch(inputPassword,confirminputPassword){
-    if(inputPassword.value != confirminputPassword.value){
-        showError(confirminputPassword,'Mật khẩu không trùng hợp')
-        return true
-    }
-    return false
- }
-
-form.addEventListener('submit', function(e){
-    e.preventDefault()
-
-    let isEmptyError = checkEmptyError([username,Email,Password,Comfirm])
-    let isEmailError=checkEmail(Email)
-    let isUsernameError = checkLenght(username,3,15)
-    let isPasswordError = checkLenght(Password,8,23)
-    let ischeckMatch = checkMatch(Password,Comfirm)
-
-})
-if(isEmptyError||isEmailError||isUsernameError||isPasswordError||ischeckMatch){
-    // do nothing
-}else{
-    
+    showSuccess(input); // Xác nhận hợp lệ
+    return false;
 }
+
+form.addEventListener('submit', function (e) {
+    let isEmptyError = checkEmptyError([user_name, password]);
+    let isuser_nameError = checkLength(user_name, 3, 15);
+    let ispasswordError = checkLength(password, 3, 23);
+
+    if (isEmptyError || isuser_nameError || ispasswordError) {
+        console.error('Có lỗi xảy ra. Vui lòng kiểm tra lại!');
+    } else {
+        console.log('Đăng nhập thành công!');
+        // Nếu cần, gửi dữ liệu form bằng cách kích hoạt sự kiện submit hoặc gửi qua Ajax
+    }
+});
+
 </script>
-</html>
